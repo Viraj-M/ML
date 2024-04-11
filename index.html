@@ -29,7 +29,9 @@
             <h1>Upload the image</h1>
 
             <div id="imageChooser">
-                <vuefileagent ref="vueFileAgent" :multiple="false"
+                <vuefileagent id="submit" onclick="onUpload($event)"
+                    ref="vueFileAgent"
+                    :multiple="false"
                     :deletable="true" :uploadUrl="uploadUrl" meta="false"
                     :accept="'image/*'" :maxSize="'10MB'" :maxFiles="1"
                     @upload="onUpload($event)" compact="true"
@@ -126,25 +128,6 @@
                         carbs: 0
                     }
                 };
-            },
-            computed: {
-                /* probabilityText() {
-                    if (this.analyzedImage.category.probability < 0.2) {
-                        return 'I am really unsure about that!';
-                    }
-                    if (this.analyzedImage.category.probability < 0.4) {
-                        return 'Maybe - maybe not though.';
-                    }
-                    if (this.analyzedImage.category.probability < 0.6) {
-                        return 'Not really sure but looks like it.';
-                    }
-                    if (this.analyzedImage.category.probability < 0.8) {
-                        return 'I am rather confident in that.';
-                    }
-                    if (this.analyzedImage.category.probability < 1) {
-                        return 'I\'m almost certain!';
-                    }
-                } */
             },
             methods: {
                 animate() {
