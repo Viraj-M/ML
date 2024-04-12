@@ -29,11 +29,12 @@
             <h1>Upload the image</h1>
 
             <div id="imageChooser">
-                <vuefileagent id="submit" onclick="onUpload($event)"
+                <vuefileagent id="submit"
                     ref="vueFileAgent"
                     :multiple="false"
                     :deletable="true" :uploadUrl="uploadUrl" meta="false"
                     :accept="'image/*'" :maxSize="'10MB'" :maxFiles="1"
+                    @onClick="onUpload($event)"
                     @upload="onUpload($event)" compact="true"
                     @select="onSelect" :helpText="'Choose an image image'"
                     :errorText="{
@@ -186,7 +187,8 @@
                 successCallback(data) {
                     this.analyzedImage = data;
                     this.analyzed = true;
-                    window.AppInventor.setWebViewString(data);
+                    window.AppInventor.setWebViewString(this.analyzedImage);
+                    //console.log(this.analyzedImage);
                     let self = this;
                     Vue.nextTick(function () {
                         self.animate();
@@ -194,18 +196,22 @@
                 },
                 onUpload(responses) {
                     this.successCallback(responses[0].data);
+                    console.log("OnUpload");
                 },
                 onSelect(event) {
                     this.analyzed = false;
                     this.uploadFiles();
+                    console.log("OnSelect");
                 },
                 uploadFiles: function () {
                     this.$refs.vueFileAgent.upload(this.uploadUrl + '?apiKey=' + this.spoonacularApiKey, this.uploadHeaders, this.foodImages);
+                    console.log("uploadFiles");
                 }
             },
             components: {
                 vuefileagent: VueFileAgent.VueFileAgent
-            }
+            },
+            
         });
     </script>
 
